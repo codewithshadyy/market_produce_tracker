@@ -140,3 +140,8 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
 }
+
+
+# mail configurations
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
