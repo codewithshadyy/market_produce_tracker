@@ -254,19 +254,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 This allows testing password reset functionality without SMTP configuration.
 
----
 
-## 📌 Upcoming Features
 
-- Price Alerts System
-- Email Notifications on Price Threshold
-- Pagination Enhancements
-- API Documentation (Swagger)
-- Deployment Configuration
-
----
-
-## 👨‍💻 Author
-
-Shadrack Kipkoech  
-Backend Developer | Django REST Framework
