@@ -6,6 +6,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .serializers import ProduceSerializer
 from .permissions import IsFarmerOrAdmin, IsOwnerOrAdmin
+from config.pagination import CustomPagination
+
 
 class ProduceViewSet(viewsets.ModelViewSet):
     queryset = Produce.objects.all()
@@ -14,6 +16,7 @@ class ProduceViewSet(viewsets.ModelViewSet):
     filterset_fields = ['market', 'farmer']
     search_fields = ['name']
     ordering_fields = ['price']
+    pagination_class = CustomPagination
     
     
     def get_permissions(self):
