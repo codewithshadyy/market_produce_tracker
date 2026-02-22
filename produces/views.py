@@ -2,7 +2,7 @@ from django.shortcuts import render
 from  .models import Produce,PriceHistory
 from alerts.models import PriceAlert
 from rest_framework import viewsets,serializers
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .serializers import ProduceSerializer
@@ -18,7 +18,11 @@ class ProduceViewSet(viewsets.ModelViewSet):
     search_fields = ['name']
     ordering_fields = ['price']
     pagination_class = CustomPagination
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
+    queryset = Produce.objects.select_related(
+    "market",
+    "farmer"
+).all()
     
     
     def get_permissions(self):

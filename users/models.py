@@ -8,15 +8,15 @@ class User(AbstractUser):
         ('FARMER', 'Farmer'),
         ('CLIENT', 'Client'),
     )
-    
-    role = models.CharField(max_length=50, choices=ROLE_CHOICES, default="CLIENT")
-    email = models.EmailField(unique=True)
-    is_verified = models.BooleanField(default=False)
     allowed_markets = models.ManyToManyField(
     "markets.Market",
     blank=True,
     related_name="allowed_farmers"
-)
+) 
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES, default="CLIENT")
+    email = models.EmailField(unique=True)
+    is_verified = models.BooleanField(default=False)
+   
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
     
