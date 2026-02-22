@@ -13,6 +13,8 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.http import urlsafe_base64_decode
 from django.core.mail import send_mail
 from django.conf import settings
+from markets.serializers import MarketSerializer
+from markets.models import Market
 
 
 
@@ -23,19 +25,36 @@ from django.conf import settings
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=8)
     
+    allowed_markets = serializers.PrimaryKeyRelatedField(
+        queryset=Market.objects.all(),
+        many=True,
+        required=False
+    )
+
+    allowed_markets_details = MarketSerializer(
+        source="allowed_markets",
+        many=True,
+        read_only=True
+    )
+    
     class Meta:
         model = User
-        fields = ['id', 'email', 'username', 'password', 'allowed_markets', 'role']
+        fields = ['id', 'email', 'username', 'password', 'allowed_markets', 'allowed_markets_details', 'role']
         
     def create(self, validated_data):
-        user = User.objects.create_user(
+        
             email=validated_data['email'],
             username=validated_data['username'],
             password=validated_data['password'],
-            allowed_markets = validated_data['allowed_markets'],
+            allowed_markets = validated_data.pop('allowed_markets', []),
             role=validated_data.get('role', 'CLIENT')
-        )
-        return user
+            
+            user = User.objects.create_user(**validated_data)
+            
+            if user.role == "farmer" and allowed_markets:
+             user.allowed_markets.set(allowed_markets)
+            
+            return user
             
 
 # password reset serializer
