@@ -11,6 +11,7 @@ from .models import Market
 class MarketViewSet(viewsets.ModelViewSet):
     queryset = Market.objects.all()
     serializer_class = MarketSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
     
     def get_permissions(self): 
         if self.action in ["create", "update", "partial_update", "destroy"]:

@@ -17,6 +17,7 @@ class ProduceViewSet(viewsets.ModelViewSet):
     search_fields = ['name']
     ordering_fields = ['price']
     pagination_class = CustomPagination
+    permission_classes = [IsAuthenticatedOrReadOnly]
     
     
     def get_permissions(self):
