@@ -159,6 +159,78 @@ Filtering Examples:
 
 ---
 
+
+
+This section documents the advanced backend improvements implemented during this development cycle.
+
+---
+
+## 1️⃣ Price History Tracking
+
+### 🎯 Objective
+Introduce full auditability of produce price changes.
+
+### 🛠 Implementation
+- Added `PriceHistory` model
+- Automatically records:
+  - Previous price
+  - Updated price
+  - Timestamp of change
+- Triggered during produce update operations
+
+### 📈 Impact
+- Enables historical price analysis
+- Supports future reporting features
+- Improves data transparency
+- Establishes audit trail for price modifications
+
+---
+
+## 2️⃣ Automated Price Alert Triggering
+
+### 🎯 Objective
+Implement real-time notification logic when produce prices change.
+
+### 🛠 Implementation
+- Created dedicated `alerts` app
+- Implemented `PriceAlert` model
+- Integrated Django signals to detect price updates
+- Automatically evaluates:
+  - Threshold-based alerts
+  - General price increase/decrease subscriptions
+- Sends email notifications to buyers
+
+### 🧠 Architectural Improvement
+Introduced event-driven behavior using model signals, enabling reactive business logic without coupling it to views.
+
+---
+
+## 3️⃣ Market Access Restriction for Farmers
+
+### 🎯 Objective
+Enforce business rules restricting where farmers can post produce.
+
+### 🛠 Implementation
+- Added `allowed_markets` (ManyToMany → Market) relationship to `User`
+- Enforced validation inside `Produce` serializer
+- Prevents unauthorized market submissions at API level
+
+### 📈 Impact
+- Strengthens data integrity
+- Enforces domain constraints
+- Moves business rules into the application layer (not frontend)
+
+---
+
+## 4️⃣ Analytics Endpoint
+
+### 🎯 Objective
+Provide aggregated insights into produce pricing data.
+
+### 🔗 Endpoint
+
+
+
 ## 🛠 Tech Stack
 
 - Python 3.12
