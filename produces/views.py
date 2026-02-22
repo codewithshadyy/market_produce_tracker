@@ -2,6 +2,10 @@ from django.shortcuts import render
 from  .models import Produce,PriceHistory
 from alerts.models import PriceAlert
 from rest_framework import viewsets,serializers
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from django.db.models import Avg, Max, Min, Count
+
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -67,6 +71,17 @@ class ProduceViewSet(viewsets.ModelViewSet):
             ):
                 alert.is_triggered = True
                 alert.save()
-    
+                
+    @action(detail=False, methods=["get"])
+    def analytics(self, request):
+      data = Produce.objects.aggregate(
+        average_price=Avg("price"),
+        highest_price=Max("price"),
+        lowest_price=Min("price"),
+        total_produce=Count("id")
+    )
 
+      return Response(data)
+            
+    
 
