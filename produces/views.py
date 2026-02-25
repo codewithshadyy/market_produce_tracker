@@ -6,7 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Avg, Max, Min, Count
 
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .serializers import ProduceSerializer
@@ -34,7 +34,7 @@ class ProduceViewSet(viewsets.ModelViewSet):
             return[IsFarmerOrAdmin()] 
         
         elif self.action in ["update", "partial_update", "destroy"]:
-            return[IsFarmerOrAdmin(), IsOwnerOrAdmin()]
+            return[IsFarmerOrAdmin(), IsOwnerOrAdmin(), IsAdminUser()]
         
         return[IsAuthenticatedOrReadOnly()]
     def perform_create(self, serializer):

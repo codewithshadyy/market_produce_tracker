@@ -17,9 +17,9 @@ class PriceAlertSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         request = self.context['request']
         
-        if request.user.role != "client":
+        if request.user.role  ==  ["ADMIN", "FARMER"]:
              raise serializers.ValidationError(
-                "Only buyers can create alerts."
+                "Only Clints can create alerts."
             )
              
         if attrs["alert_type"] == "threshold" and not attrs.get("threshold_price"):
