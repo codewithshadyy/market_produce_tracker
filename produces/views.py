@@ -34,7 +34,7 @@ class ProduceViewSet(viewsets.ModelViewSet):
             return[IsFarmerOrAdmin()] 
         
         elif self.action in ["update", "partial_update", "destroy"]:
-            return[IsFarmerOrAdmin(), IsOwnerOrAdmin(), IsAdminUser()]
+            return[IsFarmerOrAdmin(), IsOwnerOrAdmin()]
         
         return[IsAuthenticatedOrReadOnly()]
     def perform_create(self, serializer):
