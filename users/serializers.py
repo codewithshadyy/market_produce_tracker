@@ -25,34 +25,34 @@ from markets.models import Market
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=8)
     
-    allowed_markets = serializers.PrimaryKeyRelatedField(
-        queryset=Market.objects.all(),
-        many=True,
-        required=False
-    )
+    # allowed_markets = serializers.PrimaryKeyRelatedField(
+    #     queryset=Market.objects.all(),
+    #     many=True,
+    #     required=False
+    # )
 
-    allowed_markets_details = MarketSerializer(
-        source="allowed_markets",
-        many=True,
-        read_only=True
-    )
+    # allowed_markets_details = MarketSerializer(
+    #     source="allowed_markets",
+    #     many=True,
+    #     read_only=True
+    # )
     
     class Meta:
         model = User
-        fields = ['id', 'email', 'username', 'password', 'allowed_markets', 'allowed_markets_details', 'role']
+        fields = ['id', 'email', 'username', 'password',  'role']
         
     def create(self, validated_data):
         
             email=validated_data['email'],
             username=validated_data['username'],
             password=validated_data['password'],
-            allowed_markets = validated_data.pop('allowed_markets', []),
+            # allowed_markets = validated_data.pop('allowed_markets', []),
             role=validated_data.get('role', 'CLIENT')
             
             user = User.objects.create_user(**validated_data)
             
-            if user.role == "farmer" and allowed_markets:
-             user.allowed_markets.set(allowed_markets)
+            # if user.role == "farmer" and allowed_markets:
+            #  user.allowed_markets.set(allowed_markets)
             
             return user
             

@@ -3,9 +3,12 @@ from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.permissions import(
     IsAuthenticatedOrReadOnly, 
-    IsAuthenticated)
+    IsAuthenticated,
+    IsAdminUser
+    )
 from .serializers import MarketSerializer
 from .permissions import IsAdminOrReadOnly
+
 from .models import Market
 
 class MarketViewSet(viewsets.ModelViewSet):
@@ -15,7 +18,7 @@ class MarketViewSet(viewsets.ModelViewSet):
     
     def get_permissions(self): 
         if self.action in ["create", "update", "partial_update", "destroy"]:
-            return [IsAdminOrReadOnly()]
+            return [IsAdminUser()]
         return [IsAuthenticatedOrReadOnly()]
     def perform_create(self, serializer):
         return serializer.save(created_by=self.request.user)

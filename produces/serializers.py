@@ -13,19 +13,19 @@ class ProduceSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         market  = data.get("market")
         
-        if request.user.role not in ["ADMIN", "FArMER"]:
+        if request.user.role not in ["ADMIN", "FARMER"]:
             serializers.ValidationError("You cannot add a Product")
             
         return data    
         
-    def validate(self, data):
-         request = self.context['request']
-         market = data.get('market')
+    # def validate(self, data):
+    #      request = self.context['request']
+    #      market = data.get('market')
 
-         if request.user.role == "FARMER":
-          if market not in request.user.allowed_markets.all():
-            raise serializers.ValidationError(
-                "You are not allowed to post in this market."
-            )
+    #      if request.user.role == "FARMER":
+    #       if market not in request.user.allowed_markets.all():
+    #         raise serializers.ValidationError(
+    #             "You are not allowed to post in this market."
+    #         )
 
-         return data  
+    #      return data  
