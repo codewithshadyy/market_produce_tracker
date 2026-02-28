@@ -12,7 +12,7 @@ def check_price_change(sender, instance, **kwargs):
     
     if  not instance.pk:
         return
-    old_instance = Produce.objects.filter(pk=instance.pk)
+    old_instance = Produce.objects.get(pk=instance.pk)
     
     if old_instance.price == instance.price:
         return
@@ -32,7 +32,7 @@ def  send_notification(alert, old_price, new_price):
             
             send_mail(
                f"Hello,\n\n" 
-               f"The price of {Produce.name} at {Produce.market.name} " 
+               f"The price of {alert.produce.name} at {alert.produce.market.name} " 
                f"has reached {Produce.price}, which surpasses your threshold of {alert.threshold_price}.\n\n" 
                f"Regards,\nMarket Alerts System"
             )
@@ -40,9 +40,10 @@ def  send_notification(alert, old_price, new_price):
     elif alert.alert_type == "all_changes":
         send_mail(
             subject="Price Updated",
-            message=f"Price changed from {old_price} to {new_price}",
-            from_email="integritymarket@gmil.com",
-            recipient_list=[alert.user.email]
+            message=f"Price of {alert.produce.name} changed from {old_price} to {new_price}",
+            from_email="kipkoechshadrack10@gmail.com",
+            recipient_list=[alert.user.email],
+            
         )  
           
             
