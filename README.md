@@ -91,7 +91,38 @@ Farmers and Admins can manage produce prices.
 
 Object-level permissions ensure farmers can only modify their own produce records.
 
+
+
 ---
+### 🚨 Real-time Alerts
+-  `alerts` app
+- Alerts app has `PriceAlert` model
+- Integrated Django signals to detect price updates
+- Automatically evaluates:
+  - Threshold-based alerts
+  - General price increase/decrease subscriptions
+- Sends email notifications to buyers
+
+### 🧠 Architectural Improvement
+Introduced event-driven behavior using model signals, enabling reactive business logic without coupling it to views.
+
+
+
+###  Analytics Endpoint
+
+### 📊 Returns
+- Average price
+- Highest price
+- Lowest price
+- Total produce count
+
+```
+GET /api/produce/analytics/
+```
+
+### 🎯 Objective
+Provide aggregated insights into produce pricing data.
+
 
 ### 🔎 Filtering, Search & Ordering
 
