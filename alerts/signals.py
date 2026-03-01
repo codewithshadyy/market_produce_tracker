@@ -31,10 +31,12 @@ def  send_notification(alert, old_price, new_price):
         if new_price <= alert.threshold_price:
             
             send_mail(
-               f"Hello,\n\n" 
-               f"The price of {alert.produce.name} at {alert.produce.market.name} " 
-               f"has reached {Produce.price}, which surpasses your threshold of {alert.threshold_price}.\n\n" 
-               f"Regards,\nMarket Alerts System"
+              subject = f"Threshold price reacheed!!!" ,
+              message= ( f"Hello {alert.user.username}, The price of {alert.produce.name} at {alert.produce.market} market by {alert.produce.farmer} " 
+               f" has reached {alert.threshold_price}, which surpasses your threshold of {alert.produce.price}.\n\n" 
+               f"Regards,\nIntegrity market"),
+              from_email="kipkoechshadrack@gmail.com",
+              recipient_list=[alert.user.email]
             )
             
     elif alert.alert_type == "all_changes":
