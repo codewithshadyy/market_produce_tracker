@@ -134,6 +134,20 @@ POST   /api/markets/
 GET    /api/markets/{id}/
 PUT    /api/markets/{id}/
 DELETE /api/markets/{id}/
+
+
+```
+### 🚨 Alerts
+```
+GET    /api/alerts/
+POST   /api/alerts/
+GET   /api/alerts/{id}/
+PUT  /api/alerts/{id}/
+DELETE /api/alerts/{id}/
+
+
+
+
 ```
 
 ---
@@ -328,7 +342,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 This allows testing password reset functionality without SMTP configuration.
 
 ##  🧪 Production Email Configuration
+```python
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+```
 
 This allows:
 
