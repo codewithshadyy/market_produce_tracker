@@ -254,9 +254,11 @@ This allows:
 
 ✅ Clients to receive real-time email alerts
 
-✅ Farmers to receive product-related notifications
+✅ Client to receive product-related notifications
 
 ✅ Threshold price change alerts
+
+✅ Users to receive password reset token
 
 
 
