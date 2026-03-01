@@ -309,7 +309,8 @@ market_produce_tracker/
 │
 ├── users/
 ├── markets/
-├── produce/
+├── produces/
+├── alerts/
 ├── manage.py
 └── README.md
 ```
@@ -325,6 +326,17 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ```
 
 This allows testing password reset functionality without SMTP configuration.
+
+##  🧪 Production Email Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+This allows:
+
+✅ Clients to receive real-time email alerts
+
+✅ Farmers to receive product-related notifications
+
+✅ Threshold price change alerts
 
 
 
