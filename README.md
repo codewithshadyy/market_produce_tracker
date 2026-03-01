@@ -103,8 +103,6 @@ Object-level permissions ensure farmers can only modify their own produce record
   - General price increase/decrease subscriptions
 - Sends email notifications to buyers
 
-### 🧠 Architectural Improvement
-Introduced event-driven behavior using model signals, enabling reactive business logic without coupling it to views.
 
 
 
