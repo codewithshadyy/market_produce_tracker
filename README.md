@@ -208,6 +208,57 @@ Filtering :
 
 ---
 
+## 🔒 Security Features
+
+- JWT Authentication
+- Refresh Token Rotation
+- Token Blacklisting
+- Role-Based Permissions
+- Object-Level Access Control
+- Secure Password Reset Tokens
+- Email Enumeration Protection
+
+---
+
+## 📂 Project Structure
+
+```
+market_produce_tracker/
+│
+├── users/
+├── markets/
+├── produces/
+├── alerts/
+├── manage.py
+└── README.md
+```
+
+---
+
+## 🧪 Development Email Configuration
+
+During development, emails are printed to the console:
+
+```python
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+```
+
+This allows testing password reset functionality without SMTP configuration.
+
+##  🧪 Production Email Configuration
+```python
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+```
+
+This allows:
+
+✅ Clients to receive real-time email alerts
+
+✅ Farmers to receive product-related notifications
+
+✅ Threshold price change alerts
+
+
 
 
 
@@ -271,55 +322,8 @@ python manage.py runserver
 
 ---
 
-## 🔒 Security Features
 
-- JWT Authentication
-- Refresh Token Rotation
-- Token Blacklisting
-- Role-Based Permissions
-- Object-Level Access Control
-- Secure Password Reset Tokens
-- Email Enumeration Protection
 
----
-
-## 📂 Project Structure
-
-```
-market_produce_tracker/
-│
-├── users/
-├── markets/
-├── produces/
-├── alerts/
-├── manage.py
-└── README.md
-```
-
----
-
-## 🧪 Development Email Configuration
-
-During development, emails are printed to the console:
-
-```python
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-```
-
-This allows testing password reset functionality without SMTP configuration.
-
-##  🧪 Production Email Configuration
-```python
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-```
-
-This allows:
-
-✅ Clients to receive real-time email alerts
-
-✅ Farmers to receive product-related notifications
-
-✅ Threshold price change alerts
 
 
 
