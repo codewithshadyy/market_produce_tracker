@@ -91,7 +91,36 @@ Farmers and Admins can manage produce prices.
 
 Object-level permissions ensure farmers can only modify their own produce records.
 
+
+
 ---
+### 🚨 Real-time Alerts
+-  `alerts` app
+- Alerts app has `PriceAlert` model
+- Integrated Django signals to detect price updates
+- Automatically evaluates:
+  - Threshold-based alerts
+  - General price increase/decrease subscriptions
+- Sends email notifications to buyers
+
+
+
+
+###  Analytics Endpoint
+
+### 📊 Returns
+- Average price
+- Highest price
+- Lowest price
+- Total produce count
+
+```
+GET /api/produce/analytics/
+```
+
+### 🎯 Objective
+Provide aggregated insights into produce pricing data.
+
 
 ### 🔎 Filtering, Search & Ordering
 
@@ -134,6 +163,20 @@ POST   /api/markets/
 GET    /api/markets/{id}/
 PUT    /api/markets/{id}/
 DELETE /api/markets/{id}/
+
+
+```
+### 🚨 Alerts
+```
+GET    /api/alerts/
+POST   /api/alerts/
+GET   /api/alerts/{id}/
+PUT  /api/alerts/{id}/
+DELETE /api/alerts/{id}/
+
+
+
+
 ```
 
 ---
@@ -148,7 +191,7 @@ PUT    /api/produce/{id}/
 DELETE /api/produce/{id}/
 ```
 
-Filtering Examples:
+Filtering :
 
 ```
 /api/produce/?market=1
@@ -161,73 +204,64 @@ Filtering Examples:
 
 
 
-This section documents the advanced backend improvements implemented during this development cycle.
+
 
 ---
 
-## 1️⃣ Price History Tracking
+## 🔒 Security Features
 
-### 🎯 Objective
-Introduce full auditability of produce price changes.
-
-### 🛠 Implementation
-- Added `PriceHistory` model
-- Automatically records:
-  - Previous price
-  - Updated price
-  - Timestamp of change
-- Triggered during produce update operations
-
-### 📈 Impact
-- Enables historical price analysis
-- Supports future reporting features
-- Improves data transparency
-- Establishes audit trail for price modifications
+- JWT Authentication
+- Refresh Token Rotation
+- Token Blacklisting
+- Role-Based Permissions
+- Object-Level Access Control
+- Secure Password Reset Tokens
+- Email Enumeration Protection
 
 ---
 
-## 2️⃣ Automated Price Alert Triggering
+## 📂 Project Structure
 
-### 🎯 Objective
-Implement real-time notification logic when produce prices change.
-
-### 🛠 Implementation
-- Created dedicated `alerts` app
-- Implemented `PriceAlert` model
-- Integrated Django signals to detect price updates
-- Automatically evaluates:
-  - Threshold-based alerts
-  - General price increase/decrease subscriptions
-- Sends email notifications to buyers
-
-### 🧠 Architectural Improvement
-Introduced event-driven behavior using model signals, enabling reactive business logic without coupling it to views.
+```
+market_produce_tracker/
+│
+├── users/
+├── markets/
+├── produces/
+├── alerts/
+├── manage.py
+└── README.md
+```
 
 ---
 
-## 3️⃣ Market Access Restriction for Farmers
+## 🧪 Development Email Configuration
 
-### 🎯 Objective
-Enforce business rules restricting where farmers can post produce.
+During development, emails are printed to the console:
 
-### 🛠 Implementation
-- Added `allowed_markets` (ManyToMany → Market) relationship to `User`
-- Enforced validation inside `Produce` serializer
-- Prevents unauthorized market submissions at API level
+```python
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+```
 
-### 📈 Impact
-- Strengthens data integrity
-- Enforces domain constraints
-- Moves business rules into the application layer (not frontend)
+This allows testing password reset functionality without SMTP configuration.
 
----
+##  🧪 Production Email Configuration
+```python
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+```
 
-## 4️⃣ Analytics Endpoint
+This allows:
 
-### 🎯 Objective
-Provide aggregated insights into produce pricing data.
+✅ Clients to receive real-time email alerts
 
-### 🔗 Endpoint
+✅ Client to receive product-related notifications
+
+✅ Threshold price change alerts
+
+✅ Users to receive password reset token
+
+
+
 
 
 
@@ -290,41 +324,8 @@ python manage.py runserver
 
 ---
 
-## 🔒 Security Features
 
-- JWT Authentication
-- Refresh Token Rotation
-- Token Blacklisting
-- Role-Based Permissions
-- Object-Level Access Control
-- Secure Password Reset Tokens
-- Email Enumeration Protection
 
----
-
-## 📂 Project Structure
-
-```
-market_produce_tracker/
-│
-├── users/
-├── markets/
-├── produce/
-├── manage.py
-└── README.md
-```
-
----
-
-## 🧪 Development Email Configuration
-
-During development, emails are printed to the console:
-
-```python
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-```
-
-This allows testing password reset functionality without SMTP configuration.
 
 
 
