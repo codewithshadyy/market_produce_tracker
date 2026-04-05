@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'users',
     'markets',
     'produces',
-    'alerts'
+    'alerts',
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
