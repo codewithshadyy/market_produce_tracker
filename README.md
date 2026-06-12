@@ -2,7 +2,7 @@
 
 AgriPrice is a RESTful API built with Django REST Framework (DRF) that enables farmers, administrators, and consumers to track and manage farm produce prices across different markets.
 
-The system promotes transparency in agricultural markets and enforces secure role-based access control using JWT authentication.
+The system promotes transparency and integrity  in agricultural markets and enforces secure role-based access control using JWT authentication.
 
 ---
 
