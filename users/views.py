@@ -36,7 +36,7 @@ class UserLogOutView(APIView):
     
         
 
-# pass rset view
+# pass reset view
 
 class PasswordResetView(generics.GenericAPIView):
     serializer_class = PasswordResetRequestSerializer
